@@ -1,7 +1,7 @@
 ﻿using System;
-using CommonFunctions;
+using SlugEnt.CommonFunctions;
 
-namespace ConsoleApp
+namespace SlugEnt.CommonFunctions.ConsoleApp
 {
 	class Program
 	{
