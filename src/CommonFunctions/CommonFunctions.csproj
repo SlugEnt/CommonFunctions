@@ -1,8 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <AssemblyVersion>1.0.0.8</AssemblyVersion>
+    <AssemblyName>SlugEnt.CommonFunctions</AssemblyName>
+    <RootNamespace>Slugent.CommonFunctions</RootNamespace>
   </PropertyGroup>
 
 </Project>

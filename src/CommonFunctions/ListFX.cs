@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CommonFunctions
+namespace SlugEnt.CommonFunctions
 {
 	/// <summary>
 	///  List related add on functions and extensions
@@ -86,13 +86,20 @@ namespace CommonFunctions
 
 				// Convert to string
 				string entry = new string(inputBuffer);
-
 				if (!int.TryParse(entry, out currentSelection)) throw new ArgumentException("The input buffer should only contain strings");
 
 				// If selection is > than list count, remove the character and return to top
 				if ( currentSelection > listCount ) {
 					inputBuffer [charIndex] = default;
 					charIndex--;
+
+					// Remove character from console.
+					Console.CursorLeft = Console.CursorLeft - 1;
+					Console.Write(" ");
+					Console.CursorLeft = Console.CursorLeft - 1;
+					entry = new string(inputBuffer);
+					if (!int.TryParse(entry, out currentSelection)) throw new ArgumentException("The input buffer should only contain strings");
+
 					continue;
 				}
 
