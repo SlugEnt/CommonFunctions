@@ -17,6 +17,7 @@ namespace SlugEnt.CommonFunctions
 		/// <summary>
 		/// Handles all the prompting and inputing of a list selection from the user.
 		/// Does not require user to hit enter to accept input, it is smart and can tell if the values entered are enough to make a determination of what the user wanted
+		/// <para">All lists should be listed starting at 1.  When the selection is returned it is returned as the index value into the list.</para>
 		/// </summary>
 		/// <param name="listCount">Number of items in list</param>
 		/// <param name="autoSelection">If true, as soon as the user has entered enough digits to uniquely identify their selection, the result is returned without user needing to hit enter.</param>
@@ -109,7 +110,7 @@ namespace SlugEnt.CommonFunctions
 				int value10x = currentSelection * 10;
 				if ( value10x > listCount ) {
 					// We have a selection, since there is no possibility of having an entry > than this with these starting characters
-					return currentSelection;
+					return currentSelection - 1;
 				}
 			}
 
