@@ -23,6 +23,12 @@
       "Deploy": "None",
       "HasTypeWriterScripts": false,
       "IsTestProject": true
+    },
+    {
+      "Name": "ConsoleApp",
+      "Deploy": "None",
+      "HasTypeWriterScripts": false,
+      "IsTestProject": false
     }
   ],
   "AngularProjects": []
