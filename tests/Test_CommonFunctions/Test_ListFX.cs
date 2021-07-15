@@ -1,7 +1,7 @@
-using CommonFunctions;
 using NUnit.Framework;
+using SlugEnt.CommonFunctions;
 
-namespace Tests
+namespace SlugEnt.Tests
 {
 	public class Tests
 	{
