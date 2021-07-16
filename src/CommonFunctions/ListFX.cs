@@ -29,7 +29,7 @@ namespace SlugEnt.CommonFunctions
 			int charIndex = -1;
 			for ( int i = 0; i < bufferMax; i++ ) inputBuffer [i] = default;
 
-			if ( prompt != string.Empty ) {
+			if ( prompt == string.Empty ) {
 				Console.WriteLine("Select item #, Press X to exit without selecting an item:  ");
 			}
 
@@ -42,6 +42,9 @@ namespace SlugEnt.CommonFunctions
 				bool isNumericEntry = false;
 				bool enterPressed = false;
 				int numericValue = -1;
+
+				// Flush Read Buffer
+				while (Console.KeyAvailable) Console.ReadKey(true);
 
 				// Read key
 				ConsoleKeyInfo keyPressed = Console.ReadKey(true);
@@ -70,9 +73,9 @@ namespace SlugEnt.CommonFunctions
 
 				// See if numeric
 				isNumericEntry = int.TryParse(keyPressed.KeyChar.ToString(), out numericValue);
-				++charIndex;
-				if ( isNumericEntry && charIndex < bufferMax) {
-					inputBuffer [charIndex] = keyPressed.KeyChar; 
+				
+				if ( isNumericEntry && charIndex + 1 < bufferMax) {
+					inputBuffer [++charIndex] = keyPressed.KeyChar; 
 					Console.Write(keyPressed.KeyChar);
 				}
 				else
@@ -99,6 +102,10 @@ namespace SlugEnt.CommonFunctions
 					Console.Write(" ");
 					Console.CursorLeft = Console.CursorLeft - 1;
 					entry = new string(inputBuffer);
+					if ( charIndex < 0 ) {
+						currentSelection = charIndex;
+						continue;
+					}
 					if (!int.TryParse(entry, out currentSelection)) throw new ArgumentException("The input buffer should only contain strings");
 
 					continue;

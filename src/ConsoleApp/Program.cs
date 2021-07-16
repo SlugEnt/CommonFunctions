@@ -13,10 +13,12 @@ namespace SlugEnt.CommonFunctions.ConsoleApp
 			while ( true ) {
 				Console.WriteLine("Hello World!   --- Item Count:  {0}", i);
 				
-				int value = ListFX.ChooseListItem(3, true);
+				int value = ListFX.ChooseListItem(i, true,"Choose an item from 1 to " + values.Count);
 				int j = 1;
+				Console.WriteLine();
 				Console.WriteLine("Selected: {0}  --> {1}",value,values[value]);
-				Console.ReadKey();
+				Console.WriteLine("Press any key to continue on...");
+				Console.ReadKey(true);
 			}
 		}
 	}
