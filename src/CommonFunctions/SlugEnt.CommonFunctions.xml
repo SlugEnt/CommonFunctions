@@ -14,6 +14,6 @@
             User selected to exit and thus nothing selected.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:SlugEnt.CommonFunctions.ListFX.ChooseListItem(System.Int32,System.Boolean,System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:SlugEnt.CommonFunctions.ListFX.ChooseListItem(System.Int32,System.Boolean,System.Boolean)" -->
     </members>
 </doc>

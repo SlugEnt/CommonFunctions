@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace SlugEnt.CommonFunctions
 {
@@ -21,15 +22,15 @@ namespace SlugEnt.CommonFunctions
 		/// </summary>
 		/// <param name="listCount">Number of items in list</param>
 		/// <param name="autoSelection">If true, as soon as the user has entered enough digits to uniquely identify their selection, the result is returned without user needing to hit enter.</param>
-		/// <param name="prompt">An optional prompt to display.</param>
+		/// <param name="useDefaultPrompt">If true a prompt will be displayed for you.  If false, you are providing the prompt prior to calling this.</param>
 		/// <returns></returns>
-		public static int ChooseListItem(int listCount, bool autoSelection = true, string prompt = "") {
+		public static int ChooseListItem(int listCount, bool autoSelection = true, bool useDefaultPrompt = false) {
 			int bufferMax = 4;
 			char [] inputBuffer = new char[bufferMax];
 			int charIndex = -1;
 			for ( int i = 0; i < bufferMax; i++ ) inputBuffer [i] = default;
 
-			if ( prompt == string.Empty ) {
+			if ( useDefaultPrompt ) {
 				Console.WriteLine("Select item #, Press X to exit without selecting an item:  ");
 			}
 
