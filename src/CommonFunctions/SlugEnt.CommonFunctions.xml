@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SlugEnt.CommonFunctions</name>
+    </assembly>
+    <members>
+        <member name="T:SlugEnt.CommonFunctions.ListFX">
+            <summary>
+             List related add on functions and extensions
+            </summary>
+        </member>
+        <member name="F:SlugEnt.CommonFunctions.ListFX.LIST_SELECT_EXIT">
+            <summary>
+            User selected to exit and thus nothing selected.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:SlugEnt.CommonFunctions.ListFX.ChooseListItem(System.Int32,System.Boolean,System.String)" -->
+    </members>
+</doc>
