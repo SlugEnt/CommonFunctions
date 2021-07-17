@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <AssemblyVersion>1.0.0.19</AssemblyVersion>
+    <AssemblyVersion>1.0.0.22</AssemblyVersion>
     <AssemblyName>SlugEnt.CommonFunctions</AssemblyName>
     <RootNamespace>Slugent.CommonFunctions</RootNamespace>
   </PropertyGroup>
@@ -18,5 +18,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>C:\A_Dev\SlugEnt\CommonFunctions\src\CommonFunctions\SlugEnt.CommonFunctions.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Colorful.Console" Version="1.2.15" />
+  </ItemGroup>
 
 </Project>

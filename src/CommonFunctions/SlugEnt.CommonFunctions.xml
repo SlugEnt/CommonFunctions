@@ -15,5 +15,26 @@
             </summary>
         </member>
         <!-- Badly formed XML comment ignored for member "M:SlugEnt.CommonFunctions.ListFX.ChooseListItem(System.Int32,System.Boolean,System.Boolean)" -->
+        <member name="M:SlugEnt.CommonFunctions.ListFX.AskUserToSelectItemAsString``1(System.Collections.Generic.List{``0},System.String,System.Func{``0,System.String})">
+            <summary>
+            Prompts user to choose an item from a list.  Returns null if the user chose to exit or not select an item. 
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="items">The List to be displayed</param>
+            <param name="ItemDisplayFX">Method used to format the display of each list item. MUST return a string.  If not provided the objects ToString method is used</param>
+            <param name="typeOfItem">The singular name for the type of item.  So if a list of cars, this would be car.  Or a list of people would be person.  Used in prompt display</param>
+            <returns></returns>
+        </member>
+        <member name="M:SlugEnt.CommonFunctions.ListFX.AskUserToSelectItemAsConsole``1(System.Collections.Generic.List{``0},System.String,System.Func{``0,System.Boolean})">
+            <summary>
+            Prompts user to choose an item from a list.  Must provide a method that writes a single item to the console.
+            <para>Returns null if the user chose to exit or not select an item.</para>
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="items">The List to be displayed</param>
+            <param name="ItemDisplayFX">Method called to display each item.  This method MUST writeline to the console the item text only.  The return value is not USED</param>
+            <param name="typeOfItem">The singular name for the type of item.  So if a list of cars, this would be car.  Or a list of people would be person.  Used in prompt display</param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

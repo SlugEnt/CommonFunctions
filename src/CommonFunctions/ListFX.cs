@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace SlugEnt.CommonFunctions
@@ -122,6 +123,66 @@ namespace SlugEnt.CommonFunctions
 				}
 			}
 
+		}
+
+
+
+		/// <summary>
+		/// Prompts user to choose an item from a list.  Returns null if the user chose to exit or not select an item. 
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="items">The List to be displayed</param>
+		/// <param name="ItemDisplayFX">Method used to format the display of each list item. MUST return a string.  If not provided the objects ToString method is used</param>
+		/// <param name="typeOfItem">The singular name for the type of item.  So if a list of cars, this would be car.  Or a list of people would be person.  Used in prompt display</param>
+		/// <returns></returns>
+		public static T AskUserToSelectItemAsString<T> (this List<T> items, string typeOfItem, Func<T, string> ItemDisplayFX = null) where T : class {
+			Console.WriteLine();
+			if ( items.Count == 0 ) {
+				Console.WriteLine("There are no {0}s to be displayed");
+				return null;
+			}
+
+			
+			for ( int i = 0; i < items.Count; i++ ) {
+				string item = ItemDisplayFX != null ? ItemDisplayFX(items [i]) : items [i].ToString();
+				Console.WriteLine(" ( {0}  )  {1}", (i + 1), item);
+			}
+
+			int choice = ChooseListItem(items.Count, true);
+			return items [choice];
+		}
+
+
+
+		/// <summary>
+		/// Prompts user to choose an item from a list.  Must provide a method that writes a single item to the console.
+		/// <para>Returns null if the user chose to exit or not select an item.</para>
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="items">The List to be displayed</param>
+		/// <param name="ItemDisplayFX">Method called to display each item.  This method MUST writeline to the console the item text only.  The return value is not USED</param>
+		/// <param name="typeOfItem">The singular name for the type of item.  So if a list of cars, this would be car.  Or a list of people would be person.  Used in prompt display</param>
+		/// <returns></returns>
+		public static T AskUserToSelectItemAsConsole<T>(this List<T> items, string typeOfItem, Func<T,bool> ItemDisplayFX) where T : class
+		{
+			Console.WriteLine();
+			if (items.Count == 0)
+			{
+				Console.WriteLine("There are no {0}s to be displayed");
+				return null;
+			}
+
+
+			for (int i = 0; i < items.Count; i++)
+			{
+				Console.Write(" ( {0}  )  ", (i + 1));
+
+				// Call function to finish the item.
+				ItemDisplayFX(items [i]);
+			}
+
+			int choice = ChooseListItem(items.Count, true);
+			return items[choice];
 		}
 	}
 }
