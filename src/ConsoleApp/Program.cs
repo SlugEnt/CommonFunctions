@@ -19,7 +19,7 @@ namespace SlugEnt.CommonFunctions.ConsoleApp
 
 			// Test List Extension with no custom display function
 			string answerStr = values.AskUserToSelectItem(strOptions);
-			
+			Console.WriteLine("You selected:  {0}",answerStr);
 
 
 			// Test ChooseListItem
@@ -28,7 +28,7 @@ namespace SlugEnt.CommonFunctions.ConsoleApp
 				Console.WriteLine("Hello World!   --- Item Count:  {0}", i);
 				
 				Console.WriteLine("Choose an item from 1 to " + values.Count);
-				int value = ListFX.ChooseListItem(i, true);
+				int value = ListFX.ChooseListItem(i, strOptions);
 				int j = 1;
 				Console.WriteLine();
 				Console.WriteLine("Selected: {0}  --> {1}",value,values[value]);
@@ -57,14 +57,18 @@ namespace SlugEnt.CommonFunctions.ConsoleApp
 
 
 			// A - Simple custom display returning the string to be displayed.
+			Console.WriteLine("{0}The following displays the list items using the AsString method.  X or Q for exiting is permitted.",Environment.NewLine, Color.Lime);
 			Person selected = people.AskUserToSelectItem(listPromptOptions);
 			Console.WriteLine("You selected: {0}, {1}",selected.LastName,selected.FirstName,Color.BurlyWood);
 			Console.WriteLine();
 
 
 			// B - Custom display of line item
+			Console.WriteLine("{0}The following displays the list items using the AsString method.  X or Q for exiting is NOT ALLOWED.", Environment.NewLine, Color.Lime);
 			listPromptOptions.ListItemDisplay_AsString = null;
 			listPromptOptions.ListItemDisplay_Custom = WritePersonToConsoleListItem;
+			listPromptOptions.MustSelectItem = true;
+
 
 			selected = people.AskUserToSelectItem(listPromptOptions);
 			Console.WriteLine("You selected: {0}, {1}", selected.LastName, selected.FirstName, Color.BurlyWood);

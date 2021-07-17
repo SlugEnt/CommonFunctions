@@ -34,6 +34,7 @@ namespace Slugent.CommonFunctions
 		#endregion
 
 
+		#region "List Display"       
 		/// <summary>
 		/// Method to be used to display each list item.  Method should return a formatted string.
 		/// </summary>
@@ -51,11 +52,27 @@ namespace Slugent.CommonFunctions
 		/// </summary>
 		public string ItemSingularText { get; set; } = "item";
 
+		#endregion
 
+		#region "List Options"
 		/// <summary>
 		/// If true, then the user must select an item.  If False, then the option X is available to exit without selecting.
 		/// </summary>
 		public bool MustSelectItem { get; set; }
+
+
+		/// <summary>
+		/// Prompt to be used at bottom of list to request user to select item.  If not set then standard prompt used
+		/// </summary>
+		public string CustomPrompt { get; set; } = "";
+
+
+		/// <summary>
+		/// If true, as soon as the user has entered enough digits to uniquely identify their selection, the result is returned without user needing to hit enter. Otherwise enter must be pressed.
+		/// </summary>
+		public bool AutoItemSelection { get; set; } = true;
+#endregion
+
 		/// <summary>
 		/// Constructor
 		/// </summary>

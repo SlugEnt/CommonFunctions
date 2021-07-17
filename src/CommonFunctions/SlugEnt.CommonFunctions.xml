@@ -57,6 +57,16 @@
             If true, then the user must select an item.  If False, then the option X is available to exit without selecting.
             </summary>
         </member>
+        <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.CustomPrompt">
+            <summary>
+            Prompt to be used at bottom of list to request user to select item.  If not set then standard prompt used
+            </summary>
+        </member>
+        <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.AutoItemSelection">
+            <summary>
+            If true, as soon as the user has entered enough digits to uniquely identify their selection, the result is returned without user needing to hit enter. Otherwise enter must be pressed.
+            </summary>
+        </member>
         <member name="M:Slugent.CommonFunctions.ListPromptOptions`1.#ctor">
             <summary>
             Constructor
@@ -72,7 +82,13 @@
             User selected to exit and thus nothing selected.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:SlugEnt.CommonFunctions.ListFX.ChooseListItem(System.Int32,System.Boolean,System.Boolean)" -->
+        <!-- Badly formed XML comment ignored for member "M:SlugEnt.CommonFunctions.ListFX.ChooseListItem``1(System.Int32,Slugent.CommonFunctions.ListPromptOptions{``0})" -->
+        <member name="M:SlugEnt.CommonFunctions.ListFX.ClearInput(System.Int32)">
+            <summary>
+            Clears the input line for list selection upon selection
+            </summary>
+            <param name="startingCol"></param>
+        </member>
         <member name="M:SlugEnt.CommonFunctions.ListFX.AskUserToSelectItem``1(System.Collections.Generic.List{``0},Slugent.CommonFunctions.ListPromptOptions{``0})">
             <summary>
             Prompts user to choose an item from a list.  Returns null if the user chose to exit or not select an item. 

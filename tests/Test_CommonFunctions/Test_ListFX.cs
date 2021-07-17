@@ -12,7 +12,7 @@ namespace SlugEnt.Tests
 
 		
 		public void ListSelection_Success(int listCount, string itemInput) {
-			ListFX.ChooseListItem(listCount);
+
 			Assert.Pass();
 		}
 	}
