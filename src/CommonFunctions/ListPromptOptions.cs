@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Dynamic;
+using System.Formats.Asn1;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +12,7 @@ namespace Slugent.CommonFunctions
 	/// <summary>
 	/// Settings used in various Display functions for Lists and prompts
 	/// </summary>
-	public class ListPromptOptions {
+	public class ListPromptOptions<T> {
 		#region "Color Settings"
 
 		/// <summary>
@@ -35,13 +37,13 @@ namespace Slugent.CommonFunctions
 		/// <summary>
 		/// Method to be used to display each list item.  Method should return a formatted string.
 		/// </summary>
-		public Func<Object,string> ListItemDisplay_AsString { get; set; }
+		public Func<T,string> ListItemDisplay_AsString { get; set; } 
 		
 		/// <summary>
 		/// Method to be used to display each list item.  Method must write the item information to the console and return true;
 		/// <para>If this and ListItemDisplay_AsString are set, this overrides</para>
 		/// </summary>
-		public Func<Object,bool> ListItemDisplay_Custom { get; set; }
+		public Func<T,bool> ListItemDisplay_Custom { get; set; }
 
 
 		/// <summary>

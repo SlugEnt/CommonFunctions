@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using Slugent.CommonFunctions;
 using SlugEnt.CommonFunctions;
 using Console = Colorful.Console;
 
@@ -14,8 +15,10 @@ namespace SlugEnt.CommonFunctions.ConsoleApp
 			List<string> values = new List<string> {"a","b","c","d"};
 			int answer = 0;
 
+			ListPromptOptions<string> strOptions = new ListPromptOptions<string>();
+
 			// Test List Extension with no custom display function
-			string answerStr = values.AskUserToSelectItemAsString("letter");
+			string answerStr = values.AskUserToSelectItem(strOptions);
 			
 
 
@@ -44,14 +47,28 @@ namespace SlugEnt.CommonFunctions.ConsoleApp
 				new Person("Han", "Solo", 32)
 			};
 
+			// Define List Prompt options
+			ListPromptOptions<Person> listPromptOptions = new ListPromptOptions<Person>()
+			{
+				ItemSingularText = "person",
+				ListItemDisplay_AsString = DisplayPersonWithAgeFirst
+				//ListItemDisplay_Custom = WritePersonToConsoleListItem,
+			};
+
+
 			// A - Simple custom display returning the string to be displayed.
-			Person selected = people.AskUserToSelectItemAsString("person", DisplayPersonWithAgeFirst);
+			Person selected = people.AskUserToSelectItem(listPromptOptions);
 			Console.WriteLine("You selected: {0}, {1}",selected.LastName,selected.FirstName,Color.BurlyWood);
 			Console.WriteLine();
 
-			selected = people.AskUserToSelectItemAsConsole("person", WritePersonToConsoleListItem);
-			Console.WriteLine("You selected: {0}, {1}", selected.LastName, selected.FirstName, Color.BurlyWood);
+
 			// B - Custom display of line item
+			listPromptOptions.ListItemDisplay_AsString = null;
+			listPromptOptions.ListItemDisplay_Custom = WritePersonToConsoleListItem;
+
+			selected = people.AskUserToSelectItem(listPromptOptions);
+			Console.WriteLine("You selected: {0}, {1}", selected.LastName, selected.FirstName, Color.BurlyWood);
+
 
 		}
 

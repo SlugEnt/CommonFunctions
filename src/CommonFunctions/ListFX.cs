@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using Slugent.CommonFunctions;
 
 namespace SlugEnt.CommonFunctions
 {
@@ -126,7 +127,50 @@ namespace SlugEnt.CommonFunctions
 		}
 
 
+		/// <summary>
+		/// Prompts user to choose an item from a list.  Returns null if the user chose to exit or not select an item. 
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="items">The List to be displayed</param>
+		/// <returns></returns>
+		public static T AskUserToSelectItem<T>(this List<T> items, ListPromptOptions<T> options) where T : class
+		{
+			Console.WriteLine();
+			if (items.Count == 0) {
+				Color promptColor = Color.White;
+				if ( options.UseColorPrompts ) promptColor = options.ColorNoItemsInList;
 
+				Console.WriteLine("There are no {0}s to be displayed",promptColor);
+				return null;
+			}
+
+
+			// A.  Base String display 
+			if (options.ListItemDisplay_Custom == null) 
+				for (int i = 0; i < items.Count; i++)
+				{
+					string item = options.ListItemDisplay_AsString != null ? options.ListItemDisplay_AsString(items[i]) : items[i].ToString();
+					Console.WriteLine(" ( {0}  )  {1}", (i + 1), item);
+				}
+			else {
+				for (int i = 0; i < items.Count; i++)
+				{
+					Console.Write(" ( {0}  )  ", (i + 1));
+					
+					// Call function to finish the item.
+					options.ListItemDisplay_Custom (items[i]);
+				}
+			}
+
+			// Get choice from user.
+			int choice = ChooseListItem(items.Count, true);
+			return items[choice];
+		}
+
+
+
+
+		/*
 		/// <summary>
 		/// Prompts user to choose an item from a list.  Returns null if the user chose to exit or not select an item. 
 		/// </summary>
@@ -184,5 +228,7 @@ namespace SlugEnt.CommonFunctions
 			int choice = ChooseListItem(items.Count, true);
 			return items[choice];
 		}
+		*/
 	}
+
 }

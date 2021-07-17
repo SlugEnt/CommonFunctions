@@ -4,6 +4,64 @@
         <name>SlugEnt.CommonFunctions</name>
     </assembly>
     <members>
+        <member name="M:Slugent.CommonFunctions.ConsoleExtensions.PressAnyKey(System.String)">
+            <summary>
+            Prompts for the user to hit a key to continue
+            </summary>
+            <param name="prompt"></param>
+        </member>
+        <member name="M:Slugent.CommonFunctions.ConsoleExtensions.PressAnyKeyInColor(System.Drawing.Color,System.String)">
+            <summary>
+            Prompts for the user to hit a key to continue.  Displays prompt in specified color.
+            </summary>
+            <param name="prompt"></param>
+        </member>
+        <member name="T:Slugent.CommonFunctions.ListPromptOptions`1">
+            <summary>
+            Settings used in various Display functions for Lists and prompts
+            </summary>
+        </member>
+        <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.UseColorPrompts">
+            <summary>
+            If true, prompts will utilize Console.Color to be displayed.
+            </summary>
+        </member>
+        <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.ColorNoItemsInList">
+            <summary>
+            Color used to display that there are no items in the list.
+            </summary>
+        </member>
+        <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.ColorListSelectionPrompt">
+            <summary>
+            Color used to display the list prompt for selection
+            </summary>
+        </member>
+        <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.ListItemDisplay_AsString">
+            <summary>
+            Method to be used to display each list item.  Method should return a formatted string.
+            </summary>
+        </member>
+        <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.ListItemDisplay_Custom">
+            <summary>
+            Method to be used to display each list item.  Method must write the item information to the console and return true;
+            <para>If this and ListItemDisplay_AsString are set, this overrides</para>
+            </summary>
+        </member>
+        <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.ItemSingularText">
+            <summary>
+            This is what each item in the list is, such as car, person, name, etc.  Should be in singular case.
+            </summary>
+        </member>
+        <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.MustSelectItem">
+            <summary>
+            If true, then the user must select an item.  If False, then the option X is available to exit without selecting.
+            </summary>
+        </member>
+        <member name="M:Slugent.CommonFunctions.ListPromptOptions`1.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
         <member name="T:SlugEnt.CommonFunctions.ListFX">
             <summary>
              List related add on functions and extensions
@@ -15,25 +73,12 @@
             </summary>
         </member>
         <!-- Badly formed XML comment ignored for member "M:SlugEnt.CommonFunctions.ListFX.ChooseListItem(System.Int32,System.Boolean,System.Boolean)" -->
-        <member name="M:SlugEnt.CommonFunctions.ListFX.AskUserToSelectItemAsString``1(System.Collections.Generic.List{``0},System.String,System.Func{``0,System.String})">
+        <member name="M:SlugEnt.CommonFunctions.ListFX.AskUserToSelectItem``1(System.Collections.Generic.List{``0},Slugent.CommonFunctions.ListPromptOptions{``0})">
             <summary>
             Prompts user to choose an item from a list.  Returns null if the user chose to exit or not select an item. 
             </summary>
             <typeparam name="T"></typeparam>
             <param name="items">The List to be displayed</param>
-            <param name="ItemDisplayFX">Method used to format the display of each list item. MUST return a string.  If not provided the objects ToString method is used</param>
-            <param name="typeOfItem">The singular name for the type of item.  So if a list of cars, this would be car.  Or a list of people would be person.  Used in prompt display</param>
-            <returns></returns>
-        </member>
-        <member name="M:SlugEnt.CommonFunctions.ListFX.AskUserToSelectItemAsConsole``1(System.Collections.Generic.List{``0},System.String,System.Func{``0,System.Boolean})">
-            <summary>
-            Prompts user to choose an item from a list.  Must provide a method that writes a single item to the console.
-            <para>Returns null if the user chose to exit or not select an item.</para>
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="items">The List to be displayed</param>
-            <param name="ItemDisplayFX">Method called to display each item.  This method MUST writeline to the console the item text only.  The return value is not USED</param>
-            <param name="typeOfItem">The singular name for the type of item.  So if a list of cars, this would be car.  Or a list of people would be person.  Used in prompt display</param>
             <returns></returns>
         </member>
     </members>
