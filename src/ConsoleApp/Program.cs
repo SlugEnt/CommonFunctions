@@ -10,7 +10,9 @@ namespace SlugEnt.CommonFunctions.ConsoleApp
 	class Program
 	{
 		static void Main(string[] args) {
-			ProcessPeople();
+			ProcessPeopleDictionary();
+			ProcessPeopleList();
+			
 
 			List<string> values = new List<string> {"a","b","c","d"};
 			int answer = 0;
@@ -38,7 +40,46 @@ namespace SlugEnt.CommonFunctions.ConsoleApp
 		}
 
 
-		private static void ProcessPeople () {
+		private static void ProcessPeopleDictionary () {
+			Dictionary<string, Person> people = new Dictionary<string, Person>()
+			{
+				{"SkyWalker", new Person("Luke", "SkyWalker", 29)},
+				{"Kirk", new Person("James", "Kirk", 35)},
+				{"Pickard", new Person("Jean-Luc", "Pickard", 56)},
+				{"Solo", new Person("Han", "Solo", 32)}
+			};
+		
+
+			// Define List Prompt options
+			ListPromptOptions<Person> listPromptOptions = new ListPromptOptions<Person>()
+			{
+				ItemSingularText = "person",
+				ListItemDisplay_AsString = DisplayPersonWithAgeFirstDict
+				//ListItemDisplay_Custom = WritePersonToConsoleListItem,
+			};
+
+
+			// A - Simple custom display returning the string to be displayed.
+			Console.WriteLine("{0}The following displays the list items using the AsString method.  X or Q for exiting is permitted.", Environment.NewLine, Color.Lime);
+			Person selected = people.AskUserToSelectItem(listPromptOptions);
+			Console.WriteLine("You selected: {0}, {1}", selected.LastName, selected.FirstName, Color.BurlyWood);
+			Console.WriteLine();
+
+
+			// B - Custom display of line item
+			Console.WriteLine("{0}The following displays the list items using the AsString method.  X or Q for exiting is NOT ALLOWED.", Environment.NewLine, Color.Lime);
+			listPromptOptions.ListItemDisplay_AsString = null;
+			listPromptOptions.ListItemDisplay_Custom = WritePersonToConsoleListItem;
+			listPromptOptions.MustSelectItem = true;
+
+
+			selected = people.AskUserToSelectItem(listPromptOptions);
+			Console.WriteLine("You selected: {0}, {1}", selected.LastName, selected.FirstName, Color.BurlyWood);
+
+
+		}
+
+		private static void ProcessPeopleList () {
 			List<Person> people = new List<Person>()
 			{
 				new Person("Luke","SkyWalker",29),
@@ -72,13 +113,17 @@ namespace SlugEnt.CommonFunctions.ConsoleApp
 
 			selected = people.AskUserToSelectItem(listPromptOptions);
 			Console.WriteLine("You selected: {0}, {1}", selected.LastName, selected.FirstName, Color.BurlyWood);
-
-
 		}
 
 
 		private static string DisplayPersonWithAgeFirst (Person a) {
 			return String.Format(" Age: {0}  -->  {1} {2}", a.Age, a.FirstName, a.LastName);
+		}
+
+
+		private static string DisplayPersonWithAgeFirstDict(Person a)
+		{
+			return String.Format(" Age: {0}  -->  {1} {2}",  a.Age, a.FirstName, a.LastName);
 		}
 
 

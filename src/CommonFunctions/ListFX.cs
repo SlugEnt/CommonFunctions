@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Drawing;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 using Slugent.CommonFunctions;
 using Console = Colorful.Console;
 
@@ -124,23 +129,7 @@ namespace SlugEnt.CommonFunctions
 			}
 		}
 
-
-		private static int SetReturn (int startingCol, int itemSelected) {
-			ClearInput(startingCol);
-			return itemSelected;
-		}
-
-
-		/// <summary>
-		/// Clears the input line for list selection upon selection
-		/// </summary>
-		/// <param name="startingCol"></param>
-		private static void ClearInput (int startingCol) {
-			Console.CursorLeft = startingCol;
-			Console.WriteLine("          ");
-			Console.CursorLeft = startingCol;
-			Console.ForegroundColor = Color.White;
-		}
+		
 
 		/// <summary>
 		/// Prompts user to choose an item from a list.  Returns null if the user chose to exit or not select an item. 
@@ -195,6 +184,50 @@ namespace SlugEnt.CommonFunctions
 			return items[choice];
 		}
 
+
+		/// <summary>
+		/// Prompts user to choose an item from a list of Dictionary items.  Returns null if the user chose to exit or not select an item. 
+		/// </summary>
+		/// <param name="options">The set of options to use to display and operate the selection criteria</param>
+		/// <returns></returns>
+		public static TValue AskUserToSelectItem<TKey,TValue>(this Dictionary<TKey,TValue> items, ListPromptOptions<TValue> options) where TValue : class {
+			//IList<T> selectionList;
+			List<TValue> selectionList = new List<TValue>();
+
+			selectionList = items.Values.ToList();
+
+			return selectionList.AskUserToSelectItem(options);
+
+		}
+
+		
+#region "Utility Methods"
+
+		/// <summary>
+		/// Used to perform cleanup activities when the ChooseListItems method is returning a value
+		/// </summary>
+		/// <param name="startingCol"></param>
+		/// <param name="itemSelected"></param>
+		/// <returns></returns>
+		private static int SetReturn(int startingCol, int itemSelected)
+		{
+			ClearInput(startingCol);
+			return itemSelected;
+		}
+
+
+		/// <summary>
+		/// Clears the input line for list selection upon selection
+		/// </summary>
+		/// <param name="startingCol"></param>
+		private static void ClearInput(int startingCol)
+		{
+			Console.CursorLeft = startingCol;
+			Console.WriteLine("          ");
+			Console.CursorLeft = startingCol;
+			Console.ForegroundColor = Color.White;
+		}
+#endregion
 	}
 
 }

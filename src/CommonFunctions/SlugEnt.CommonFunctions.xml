@@ -97,5 +97,12 @@
             <param name="items">The List to be displayed</param>
             <returns></returns>
         </member>
+        <member name="M:SlugEnt.CommonFunctions.ListFX.AskUserToSelectItem``2(System.Collections.Generic.Dictionary{``0,``1},Slugent.CommonFunctions.ListPromptOptions{``1})">
+            <summary>
+            Prompts user to choose an item from a list of Dictionary items.  Returns null if the user chose to exit or not select an item. 
+            </summary>
+            <param name="options">The set of options to use to display and operate the selection criteria</param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
