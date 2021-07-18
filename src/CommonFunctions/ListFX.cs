@@ -19,9 +19,10 @@ namespace SlugEnt.CommonFunctions
 		/// <summary>
 		/// User selected to exit and thus nothing selected.
 		/// </summary>
-		public static int LIST_SELECT_EXIT = -3;
-
-
+		public static int CHOOSE_LIST_NOTHING = -2;
+		public static int CHOOSE_LIST_EXIT = -3;
+		public static int CHOOSE_LIST_NEW = -4;
+		
 
 		/// <summary>
 		/// Handles all the prompting and inputing of a list selection from the user.
@@ -72,9 +73,11 @@ namespace SlugEnt.CommonFunctions
 					continue;
 				}
 
-				// Only allow not selecting an item if option set.
-				if (!options.MustSelectItem)
-					if ( keyPressed.Key == ConsoleKey.Q || keyPressed.Key == ConsoleKey.X ) return SetReturn(startingInputCol, LIST_SELECT_EXIT);
+				// Only allow not selecting an item if special options are set.
+				if ( !options.SelectOptionMustChooseItem ) {
+					if ( keyPressed.Key == ConsoleKey.Q || keyPressed.Key == ConsoleKey.X ) return SetReturn(startingInputCol, CHOOSE_LIST_EXIT);
+					else if ( keyPressed.Key == ConsoleKey.N && options.SelectOptionNewItemAllowed) return SetReturn(startingInputCol, CHOOSE_LIST_NEW);
+				}
 
 
 				// See if numeric
@@ -132,12 +135,14 @@ namespace SlugEnt.CommonFunctions
 		
 
 		/// <summary>
-		/// Prompts user to choose an item from a list.  Returns null if the user chose to exit or not select an item. 
+		/// Prompts user to choose an item from a list.  Returns null if the user chose to exit or create a new item.  the integer in the return will indicate whether Exit or New. 
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="items">The List to be displayed</param>
-		/// <returns></returns>
-		public static T AskUserToSelectItem<T>(this List<T> items, ListPromptOptions<T> options) where T : class
+		/// <returns>(int, T) where T is an object in the list.
+		/// <para>If int is less than zero, then T will be null and int will indicate the special list function the user choose.</para>
+		/// <para>Special list functions could be:  Exit, selecting nothing, Create new item</para></returns>
+		public static (int,T) AskUserToSelectItem<T>(this List<T> items, ListPromptOptions<T> options) where T : class
 		{
 			Console.ForegroundColor = Color.White;
 			Console.WriteLine();
@@ -146,7 +151,7 @@ namespace SlugEnt.CommonFunctions
 				if ( options.UseColorPrompts ) promptColor = options.ColorNoItemsInList;
 
 				Console.WriteLine("There are no {0}s to be displayed",promptColor);
-				return null;
+				return (CHOOSE_LIST_NOTHING, null);
 			}
 
 
@@ -170,18 +175,43 @@ namespace SlugEnt.CommonFunctions
 
 			// Display Prompt
 			string prompt = "";
-			if ( options.CustomPrompt != string.Empty )
-				prompt = options.CustomPrompt;
-			else
-				prompt = "Select item #, Press X to exit without selecting an item: ";
-
 			promptColor = options.UseColorPrompts == true ? options.ColorListSelectionPrompt : Color.White;
-			Console.WriteLine(" {0}",prompt,promptColor);
 
+			if ( options.CustomPrompt != string.Empty ) {
+				Console.WriteLine(" {0}", options.CustomPrompt, promptColor);
+			}
+			else {
+				Console.WriteLine("Select one of the following:  ", promptColor);
+				DisplaySelectionKey("  --> Item ",'#'," from above",promptColor,Color.Cyan);
+
+				if ( !options.SelectOptionMustChooseItem ) {
+					if ( options.SelectOptionNewItemAllowed )
+						DisplaySelectionKey("  --> Press ", 'N', " to Create a New " + options.ItemSingularText, promptColor, Color.Green);
+
+					DisplaySelectionKey("  --> Press ", 'X', " to Exit, selecting nothing", promptColor, Color.Red);
+				}
+
+				Console.WriteLine();
+			}
+			
 
 			// Get choice from user.
 			int choice = ChooseListItem(items.Count, options);
-			return items[choice];
+			if ( choice < 0 ) {
+				return (choice, null);
+			}
+			return (choice,items[choice]);
+		}
+
+
+
+		private static void DisplaySelectionKey (string prefix, char keyValue, string suffix, Color promptColor,Color keyColor) {
+			Color consoleColor = Console.ForegroundColor;
+			Console.Write("{0}",prefix,promptColor);
+			Console.Write("{0}",keyValue,keyColor);
+			Console.Write("{0}",suffix,promptColor);
+			Console.ForegroundColor = consoleColor;
+			Console.WriteLine();
 		}
 
 
@@ -190,7 +220,7 @@ namespace SlugEnt.CommonFunctions
 		/// </summary>
 		/// <param name="options">The set of options to use to display and operate the selection criteria</param>
 		/// <returns></returns>
-		public static TValue AskUserToSelectItem<TKey,TValue>(this Dictionary<TKey,TValue> items, ListPromptOptions<TValue> options) where TValue : class {
+		public static (int,TValue) AskUserToSelectItem<TKey,TValue>(this Dictionary<TKey,TValue> items, ListPromptOptions<TValue> options) where TValue : class {
 			//IList<T> selectionList;
 			List<TValue> selectionList = new List<TValue>();
 

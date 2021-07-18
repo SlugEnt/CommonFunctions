@@ -56,9 +56,9 @@ namespace Slugent.CommonFunctions
 
 		#region "List Options"
 		/// <summary>
-		/// If true, then the user must select an item.  If False, then the option X is available to exit without selecting.
+		/// If true, then the user must select an item.  If False, then the option X is available to exit without selecting.  When true, this will prevent the NewItemAllowed and Exit Options from working
 		/// </summary>
-		public bool MustSelectItem { get; set; }
+		public bool SelectOptionMustChooseItem { get; set; }
 
 
 		/// <summary>
@@ -71,6 +71,12 @@ namespace Slugent.CommonFunctions
 		/// If true, as soon as the user has entered enough digits to uniquely identify their selection, the result is returned without user needing to hit enter. Otherwise enter must be pressed.
 		/// </summary>
 		public bool AutoItemSelection { get; set; } = true;
+
+
+		/// <summary>
+		/// Determines if the selection allows the new item method.  If so, then the list allows the user to select N for new.  A special negative return value is returned to indicate new.
+		/// </summary>
+		public bool SelectOptionNewItemAllowed { get; set; } = false;
 #endregion
 
 		/// <summary>

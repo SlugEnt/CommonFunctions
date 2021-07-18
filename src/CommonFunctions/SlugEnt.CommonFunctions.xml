@@ -52,9 +52,9 @@
             This is what each item in the list is, such as car, person, name, etc.  Should be in singular case.
             </summary>
         </member>
-        <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.MustSelectItem">
+        <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.SelectOptionMustChooseItem">
             <summary>
-            If true, then the user must select an item.  If False, then the option X is available to exit without selecting.
+            If true, then the user must select an item.  If False, then the option X is available to exit without selecting.  When true, this will prevent the NewItemAllowed and Exit Options from working
             </summary>
         </member>
         <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.CustomPrompt">
@@ -67,6 +67,11 @@
             If true, as soon as the user has entered enough digits to uniquely identify their selection, the result is returned without user needing to hit enter. Otherwise enter must be pressed.
             </summary>
         </member>
+        <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.SelectOptionNewItemAllowed">
+            <summary>
+            Determines if the selection allows the new item method.  If so, then the list allows the user to select N for new.  A special negative return value is returned to indicate new.
+            </summary>
+        </member>
         <member name="M:Slugent.CommonFunctions.ListPromptOptions`1.#ctor">
             <summary>
             Constructor
@@ -77,25 +82,21 @@
              List related add on functions and extensions
             </summary>
         </member>
-        <member name="F:SlugEnt.CommonFunctions.ListFX.LIST_SELECT_EXIT">
+        <member name="F:SlugEnt.CommonFunctions.ListFX.CHOOSE_LIST_NOTHING">
             <summary>
             User selected to exit and thus nothing selected.
             </summary>
         </member>
         <!-- Badly formed XML comment ignored for member "M:SlugEnt.CommonFunctions.ListFX.ChooseListItem``1(System.Int32,Slugent.CommonFunctions.ListPromptOptions{``0})" -->
-        <member name="M:SlugEnt.CommonFunctions.ListFX.ClearInput(System.Int32)">
-            <summary>
-            Clears the input line for list selection upon selection
-            </summary>
-            <param name="startingCol"></param>
-        </member>
         <member name="M:SlugEnt.CommonFunctions.ListFX.AskUserToSelectItem``1(System.Collections.Generic.List{``0},Slugent.CommonFunctions.ListPromptOptions{``0})">
             <summary>
-            Prompts user to choose an item from a list.  Returns null if the user chose to exit or not select an item. 
+            Prompts user to choose an item from a list.  Returns null if the user chose to exit or create a new item.  the integer in the return will indicate whether Exit or New. 
             </summary>
             <typeparam name="T"></typeparam>
             <param name="items">The List to be displayed</param>
-            <returns></returns>
+            <returns>(int, T) where T is an object in the list.
+            <para>If int is less than zero, then T will be null and int will indicate the special list function the user choose.</para>
+            <para>Special list functions could be:  Exit, selecting nothing, Create new item</para></returns>
         </member>
         <member name="M:SlugEnt.CommonFunctions.ListFX.AskUserToSelectItem``2(System.Collections.Generic.Dictionary{``0,``1},Slugent.CommonFunctions.ListPromptOptions{``1})">
             <summary>
@@ -103,6 +104,20 @@
             </summary>
             <param name="options">The set of options to use to display and operate the selection criteria</param>
             <returns></returns>
+        </member>
+        <member name="M:SlugEnt.CommonFunctions.ListFX.SetReturn(System.Int32,System.Int32)">
+            <summary>
+            Used to perform cleanup activities when the ChooseListItems method is returning a value
+            </summary>
+            <param name="startingCol"></param>
+            <param name="itemSelected"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SlugEnt.CommonFunctions.ListFX.ClearInput(System.Int32)">
+            <summary>
+            Clears the input line for list selection upon selection
+            </summary>
+            <param name="startingCol"></param>
         </member>
     </members>
 </doc>
