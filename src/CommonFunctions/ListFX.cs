@@ -39,7 +39,6 @@ namespace SlugEnt.CommonFunctions
 			int startingInputCol = Console.CursorLeft;
 			int currentSelection = -1;
 			Console.ForegroundColor = Color.White;
-			Console.WriteLine();
 
 			// Clear keyboard buffer
 			for ( int i = 0; i < bufferMax; i++ ) inputBuffer [i] = default;
@@ -191,7 +190,6 @@ namespace SlugEnt.CommonFunctions
 					DisplaySelectionKey("  --> Press ", 'X', " to Exit, selecting nothing", promptColor, Color.Red);
 				}
 
-				Console.WriteLine();
 			}
 			
 

@@ -56,7 +56,8 @@ namespace SlugEnt.CommonFunctions.ConsoleApp
 			ListPromptOptions<Person> listPromptOptions = new ListPromptOptions<Person>()
 			{
 				ItemSingularText = "person",
-				ListItemDisplay_AsString = DisplayPersonWithAgeFirstDict
+				ListItemDisplay_AsString = DisplayPersonWithAgeFirstDict,
+				
 				//ListItemDisplay_Custom = WritePersonToConsoleListItem,
 			};
 
@@ -77,7 +78,6 @@ namespace SlugEnt.CommonFunctions.ConsoleApp
 			Console.WriteLine("{0}The following displays the list items using the AsString method.  X or Q for exiting is NOT ALLOWED.", Environment.NewLine, Color.Lime);
 			listPromptOptions.ListItemDisplay_AsString = null;
 			listPromptOptions.ListItemDisplay_Custom = WritePersonToConsoleListItem;
-			listPromptOptions.SelectOptionMustChooseItem = true;
 			listPromptOptions.SelectOptionNewItemAllowed = true;
 
 

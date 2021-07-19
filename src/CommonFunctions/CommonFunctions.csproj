@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <AssemblyVersion>1.0.0.38</AssemblyVersion>
+    <AssemblyVersion>1.0.0.39</AssemblyVersion>
     <AssemblyName>SlugEnt.CommonFunctions</AssemblyName>
     <RootNamespace>Slugent.CommonFunctions</RootNamespace>
   </PropertyGroup>
