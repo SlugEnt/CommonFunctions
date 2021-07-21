@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Reflection;
 using Slugent.CommonFunctions;
 using SlugEnt.CommonFunctions;
+
+
 using Console = Colorful.Console;
 
 namespace SlugEnt.CommonFunctions.ConsoleApp
@@ -11,9 +13,15 @@ namespace SlugEnt.CommonFunctions.ConsoleApp
 	class Program
 	{
 		static void Main(string[] args) {
+			ConsoleExtensions.PressAnyKey();
+			ProcessEmptyList();
+
 			ProcessPeopleDictionary();
 			ProcessPeopleList();
+
 			
+
+
 
 			List<string> values = new List<string> {"a","b","c","d"};
 			int answer = 0;
@@ -60,7 +68,7 @@ namespace SlugEnt.CommonFunctions.ConsoleApp
 				
 				//ListItemDisplay_Custom = WritePersonToConsoleListItem,
 			};
-
+			 
 
 			// A - Simple custom display returning the string to be displayed.
 			Console.WriteLine("{0}The following displays the list items using the AsString method.  X or Q for exiting is permitted.", Environment.NewLine, Color.Lime);
@@ -93,6 +101,19 @@ namespace SlugEnt.CommonFunctions.ConsoleApp
 
 
 		}
+
+
+		private static void ProcessEmptyList () {
+			List<Person> noPeople = new List<Person>();
+			ListPromptOptions<Person> listPromptOptions = new ListPromptOptions<Person>() {SelectOptionNewItemAllowed = true};
+			(int returnCode, Person selected) = noPeople.AskUserToSelectItem(listPromptOptions);
+			if (selected != null) 
+				Console.WriteLine("{0}", selected.LastName);
+			else {
+				Console.WriteLine("Nothing selected");
+			}
+		}
+
 
 		private static void ProcessPeopleList () {
 			List<Person> people = new List<Person>()

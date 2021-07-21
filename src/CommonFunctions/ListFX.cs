@@ -152,25 +152,23 @@ namespace SlugEnt.CommonFunctions
 				Console.WriteLine("There are no {0}s to be displayed",promptColor);
 				return (CHOOSE_LIST_NOTHING, null);
 			}
-
-
-			// A.  Base String display 
-			if (options.ListItemDisplay_Custom == null) 
-				for (int i = 0; i < items.Count; i++)
-				{
-					string item = options.ListItemDisplay_AsString != null ? options.ListItemDisplay_AsString(items[i]) : items[i].ToString();
-					Console.WriteLine(" ( {0}  )  {1}", (i + 1), item);
-				}
 			else {
-				for (int i = 0; i < items.Count; i++)
-				{
-					Console.Write(" ( {0}  )  ", (i + 1));
-					
-					// Call function to finish the item.
-					options.ListItemDisplay_Custom (items[i]);
+
+				// A.  Base String display 
+				if ( options.ListItemDisplay_Custom == null )
+					for ( int i = 0; i < items.Count; i++ ) {
+						string item = options.ListItemDisplay_AsString != null ? options.ListItemDisplay_AsString(items [i]) : items [i].ToString();
+						Console.WriteLine(" ( {0}  )  {1}", (i + 1), item);
+					}
+				else {
+					for ( int i = 0; i < items.Count; i++ ) {
+						Console.Write(" ( {0}  )  ", (i + 1));
+
+						// Call function to finish the item.
+						options.ListItemDisplay_Custom(items [i]);
+					}
 				}
 			}
-
 
 			// Display Prompt
 			string prompt = "";
