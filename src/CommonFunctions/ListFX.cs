@@ -150,7 +150,9 @@ namespace SlugEnt.CommonFunctions
 				if ( options.UseColorPrompts ) promptColor = options.ColorNoItemsInList;
 
 				Console.WriteLine("There are no {0}s to be displayed",promptColor);
-				return (CHOOSE_LIST_NOTHING, null);
+
+				if (!options.SelectOptionNewItemAllowed)
+					return (CHOOSE_LIST_NOTHING, null);
 			}
 			else {
 
@@ -179,7 +181,8 @@ namespace SlugEnt.CommonFunctions
 			}
 			else {
 				Console.WriteLine("Select one of the following:  ", promptColor);
-				DisplaySelectionKey("  --> Item ",'#'," from above",promptColor,Color.Cyan);
+				if (items.Count > 0)
+					DisplaySelectionKey("  --> Item ",'#'," from above",promptColor,Color.Cyan);
 
 				if ( !options.SelectOptionMustChooseItem ) {
 					if ( options.SelectOptionNewItemAllowed )
