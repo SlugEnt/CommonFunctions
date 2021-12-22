@@ -25,12 +25,6 @@ namespace SlugEnt.CommonFunctions.ConsoleApp
 
 			
 
-			ListPromptOptions<Person> a = new ListPromptOptions<Person>()
-			{
-				AutoItemSelection = true,
-				ColorListSelectionPrompt = 
-			}
-
 			// Demonstrates Providing a list, prompting the user for their selection and returning the result.
 			List<string> values = new List<string> {"a","b","c","d"};
 			int answer = 0;
