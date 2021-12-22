@@ -13,16 +13,25 @@ namespace SlugEnt.CommonFunctions.ConsoleApp
 	class Program
 	{
 		static void Main(string[] args) {
+			Console.WriteLine("Sample application demonstrating various ways of prompting user for selection from a list of values");
 			ConsoleExtensions.PressAnyKey();
+
+
 			ProcessEmptyList();
+
 
 			ProcessPeopleDictionary();
 			ProcessPeopleList();
 
 			
 
+			ListPromptOptions<Person> a = new ListPromptOptions<Person>()
+			{
+				AutoItemSelection = true,
+				ColorListSelectionPrompt = 
+			}
 
-
+			// Demonstrates Providing a list, prompting the user for their selection and returning the result.
 			List<string> values = new List<string> {"a","b","c","d"};
 			int answer = 0;
 
@@ -71,19 +80,19 @@ namespace SlugEnt.CommonFunctions.ConsoleApp
 			 
 
 			// A - Simple custom display returning the string to be displayed.
-			Console.WriteLine("{0}The following displays the list items using the AsString method.  X or Q for exiting is permitted.", Environment.NewLine, Color.Lime);
+			Console.WriteLine("{0}{0}Sample:  Dictionary A:  {0}The following displays the list items using the AsString method.  X or Q for exiting is permitted.", Environment.NewLine, Color.Lime);
 			(int returnCode, Person selected)  = people.AskUserToSelectItem(listPromptOptions);
 			if (selected != null)
-				Console.WriteLine("You selected: {0}, {1}", selected.LastName, selected.FirstName, Color.BurlyWood);
+				Console.WriteLine("User selected the item: {0}, {1}", selected.LastName, selected.FirstName, Color.BurlyWood);
 			else {
-				if (returnCode == ListFX.CHOOSE_LIST_EXIT) Console.WriteLine("To exit");
-				else if (returnCode == ListFX.CHOOSE_LIST_NEW) Console.WriteLine("Create new item");
+				if (returnCode == ListFX.CHOOSE_LIST_EXIT) Console.WriteLine("User choose to exit");
+				else if (returnCode == ListFX.CHOOSE_LIST_NEW) Console.WriteLine("User choose to create new item");
 			}
 			Console.WriteLine();
 
 
 			// B - Custom display of line item
-			Console.WriteLine("{0}The following displays the list items using the AsString method.  X or Q for exiting is NOT ALLOWED.", Environment.NewLine, Color.Lime);
+			Console.WriteLine("{0}Sample: Dictionary B{0}The following displays the list items using a custom formatting method.  X or Q for exiting is NOT ALLOWED.", Environment.NewLine, Color.Lime);
 			listPromptOptions.ListItemDisplay_AsString = null;
 			listPromptOptions.ListItemDisplay_Custom = WritePersonToConsoleListItem;
 			listPromptOptions.SelectOptionNewItemAllowed = true;
@@ -91,11 +100,11 @@ namespace SlugEnt.CommonFunctions.ConsoleApp
 
 			(returnCode, selected) = people.AskUserToSelectItem(listPromptOptions);
 			if (selected != null)
-				Console.WriteLine("You selected: {0}, {1}", selected.LastName, selected.FirstName, Color.BurlyWood);
+				Console.WriteLine("User selected the item: {0}, {1}", selected.LastName, selected.FirstName, Color.BurlyWood);
 			else
 			{
-				if (returnCode == ListFX.CHOOSE_LIST_EXIT) Console.WriteLine("To exit");
-				else if (returnCode == ListFX.CHOOSE_LIST_NEW) Console.WriteLine("Create new item");
+				if (returnCode == ListFX.CHOOSE_LIST_EXIT) Console.WriteLine("User choose to exit");
+				else if (returnCode == ListFX.CHOOSE_LIST_NEW) Console.WriteLine("User choose to create new item");
 			}
 			Console.WriteLine();
 
@@ -103,18 +112,38 @@ namespace SlugEnt.CommonFunctions.ConsoleApp
 		}
 
 
+		/// <summary>
+		/// This method demonstrates the processing that occurs when the list is empty.
+		/// </summary>
 		private static void ProcessEmptyList () {
+
+			Console.WriteLine("{0}Sample - Empty List:{0} In this sample, we are prompting for input when the list contains no values.  Note, we also allow them enter a new item.  ", Environment.NewLine);
 			List<Person> noPeople = new List<Person>();
-			ListPromptOptions<Person> listPromptOptions = new ListPromptOptions<Person>() {SelectOptionNewItemAllowed = true};
+			ListPromptOptions<Person> listPromptOptions = new ListPromptOptions<Person>()
+			{
+				// Allow for menu item to add a new item
+				SelectOptionNewItemAllowed = true, 
+
+				// The text for displaying the singular of the items in the list.
+				ItemSingularText = "person",
+			};
 			(int returnCode, Person selected) = noPeople.AskUserToSelectItem(listPromptOptions);
 			if (selected != null) 
 				Console.WriteLine("{0}", selected.LastName);
 			else {
-				Console.WriteLine("Nothing selected");
+				if (returnCode == ListFX.CHOOSE_LIST_EXIT)
+					Console.WriteLine("User chose to exit the list{0}{0}", Environment.NewLine);
+				else if ( returnCode == ListFX.CHOOSE_LIST_NEW ) Console.WriteLine("User chose to add a new item{0}{0}", Environment.NewLine);
+				else if (returnCode == ListFX.CHOOSE_LIST_NOTHING)
+					Console.WriteLine("Nothing selected{0}{0}", Environment.NewLine);
 			}
+			
 		}
 
 
+		/// <summary>
+		/// Demonstrates displaying the list with a custom function for displaying each list item
+		/// </summary>
 		private static void ProcessPeopleList () {
 			List<Person> people = new List<Person>()
 			{
@@ -124,30 +153,37 @@ namespace SlugEnt.CommonFunctions.ConsoleApp
 				new Person("Han", "Solo", 32)
 			};
 
+
 			// Define List Prompt options
 			ListPromptOptions<Person> listPromptOptions = new ListPromptOptions<Person>()
 			{
 				ItemSingularText = "person",
+				// This is the method that is called for each list item to display it.
 				ListItemDisplay_AsString = DisplayPersonWithAgeFirst
-				//ListItemDisplay_Custom = WritePersonToConsoleListItem,
 			};
 
 
+
 			// A - Simple custom display returning the string to be displayed.
-			Console.WriteLine("{0}The following displays the list items using the AsString method.  X or Q for exiting is permitted.",Environment.NewLine, Color.Lime);
+			Console.WriteLine("{0}List Sample A:{0}The following displays the list items using the AsString method which requires the custom function to just return a string of the item.{0}.  X or Q are valid selection items for exiting without selecting.", Environment.NewLine, Color.Lime);
 			(int returnCode, Person selected) = people.AskUserToSelectItem(listPromptOptions);
 			if (selected != null)
 				Console.WriteLine("You selected: {0}, {1}", selected.LastName, selected.FirstName, Color.BurlyWood);
 			else
 			{
-				if (returnCode == ListFX.CHOOSE_LIST_EXIT) Console.WriteLine("To exit");
-				else if (returnCode == ListFX.CHOOSE_LIST_NEW) Console.WriteLine("Create new item");
+				if (returnCode == ListFX.CHOOSE_LIST_EXIT)
+					Console.WriteLine("User chose to exit the list{0}{0}", Environment.NewLine);
+				else if (returnCode == ListFX.CHOOSE_LIST_NEW) Console.WriteLine("User chose to add a new item{0}{0}", Environment.NewLine);
+				else if (returnCode == ListFX.CHOOSE_LIST_NOTHING)
+					Console.WriteLine("Nothing selected{0}{0}", Environment.NewLine);
 			}
 			Console.WriteLine();
 
 
+
+
 			// B - Custom display of line item
-			Console.WriteLine("{0}The following displays the list items using the AsString method.  X or Q for exiting is NOT ALLOWED.", Environment.NewLine, Color.Lime);
+			Console.WriteLine("{0}List Sample B:  The following displays the list items using a custom display method that gives complete control of the line to the method, so you can use custom colors, etc.  X or Q for exiting is NOT ALLOWED.", Environment.NewLine, Color.Lime);
 			listPromptOptions.ListItemDisplay_AsString = null;
 			listPromptOptions.ListItemDisplay_Custom = WritePersonToConsoleListItem;
 			listPromptOptions.SelectOptionMustChooseItem = true;
@@ -155,11 +191,14 @@ namespace SlugEnt.CommonFunctions.ConsoleApp
 
 			(returnCode, selected) = people.AskUserToSelectItem(listPromptOptions);
 			if (selected != null)
-				Console.WriteLine("You selected: {0}, {1}", selected.LastName, selected.FirstName, Color.BurlyWood);
+				Console.WriteLine("User selected the following item: {0}, {1}", selected.LastName, selected.FirstName, Color.BurlyWood);
 			else
 			{
-				if (returnCode == ListFX.CHOOSE_LIST_EXIT) Console.WriteLine("To exit");
-				else if (returnCode == ListFX.CHOOSE_LIST_NEW) Console.WriteLine("Create new item");
+				if (returnCode == ListFX.CHOOSE_LIST_EXIT)
+					Console.WriteLine("User chose to exit the list{0}{0}", Environment.NewLine);
+				else if (returnCode == ListFX.CHOOSE_LIST_NEW) Console.WriteLine("User chose to add a new item{0}{0}", Environment.NewLine);
+				else if (returnCode == ListFX.CHOOSE_LIST_NOTHING)
+					Console.WriteLine("Nothing selected{0}{0}", Environment.NewLine);
 			}
 			Console.WriteLine();
 			
