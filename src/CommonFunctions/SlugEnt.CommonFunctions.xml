@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SlugEnt.CommonFunctions</name>
+    </assembly>
+    <members>
+        <member name="M:Slugent.CommonFunctions.ConsoleExtensions.PressAnyKey(System.String)">
+            <summary>
+            Prompts for the user to hit a key to continue
+            </summary>
+            <param name="prompt"></param>
+        </member>
+        <member name="M:Slugent.CommonFunctions.ConsoleExtensions.PressAnyKeyInColor(System.Drawing.Color,System.String)">
+            <summary>
+            Prompts for the user to hit a key to continue.  Displays prompt in specified color.
+            </summary>
+            <param name="prompt"></param>
+        </member>
+        <member name="T:Slugent.CommonFunctions.ListPromptOptions`1">
+            <summary>
+            Settings used in various Display functions for Lists and prompts
+            </summary>
+        </member>
+        <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.UseColorPrompts">
+            <summary>
+            If true, prompts will utilize Console.Color to be displayed.
+            </summary>
+        </member>
+        <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.ColorNoItemsInList">
+            <summary>
+            Color used to display that there are no items in the list.
+            </summary>
+        </member>
+        <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.ColorListSelectionPrompt">
+            <summary>
+            Color used to display the list prompt for selection
+            </summary>
+        </member>
+        <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.ListItemDisplay_AsString">
+            <summary>
+            Method to be used to display each list item.  Method should return a formatted string.
+            </summary>
+        </member>
+        <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.ListItemDisplay_Custom">
+            <summary>
+            Method to be used to display each list item.  Method must write the item information to the console and return true;
+            <para>If this and ListItemDisplay_AsString are set, this overrides</para>
+            </summary>
+        </member>
+        <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.ItemSingularText">
+            <summary>
+            This is what each item in the list is, such as car, person, name, etc.  Should be in singular case.
+            </summary>
+        </member>
+        <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.SelectOptionMustChooseItem">
+            <summary>
+            If true, then the user must select an item.  If False, then the option X is available to exit without selecting.  When true, this will prevent the NewItemAllowed and Exit Options from working
+            </summary>
+        </member>
+        <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.CustomPrompt">
+            <summary>
+            Prompt to be used at bottom of list to request user to select item.  If not set then standard prompt used
+            </summary>
+        </member>
+        <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.AutoItemSelection">
+            <summary>
+            If true, as soon as the user has entered enough digits to uniquely identify their selection, the result is returned without user needing to hit enter. Otherwise enter must be pressed.
+            </summary>
+        </member>
+        <member name="P:Slugent.CommonFunctions.ListPromptOptions`1.SelectOptionNewItemAllowed">
+            <summary>
+            Determines if the selection allows the new item method.  If so, then the list allows the user to select N for new.  A special negative return value is returned to indicate new.
+            </summary>
+        </member>
+        <member name="M:Slugent.CommonFunctions.ListPromptOptions`1.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="T:SlugEnt.CommonFunctions.ListFX">
+            <summary>
+             List related add on functions and extensions
+            </summary>
+        </member>
+        <member name="F:SlugEnt.CommonFunctions.ListFX.CHOOSE_LIST_NOTHING">
+            <summary>
+            User selected to exit and thus nothing selected.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:SlugEnt.CommonFunctions.ListFX.ChooseListItem``1(System.Int32,Slugent.CommonFunctions.ListPromptOptions{``0})" -->
+        <member name="M:SlugEnt.CommonFunctions.ListFX.AskUserToSelectItem``1(System.Collections.Generic.List{``0},Slugent.CommonFunctions.ListPromptOptions{``0})">
+            <summary>
+            Prompts user to choose an item from a list.  Returns null if the user chose to exit or create a new item.  the integer in the return will indicate whether Exit or New. 
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="items">The List to be displayed</param>
+            <returns>(int, T) where T is an object in the list.
+            <para>If int is less than zero, then T will be null and int will indicate the special list function the user choose.</para>
+            <para>Special list functions could be:  Exit, selecting nothing, Create new item</para></returns>
+        </member>
+        <member name="M:SlugEnt.CommonFunctions.ListFX.AskUserToSelectItem``2(System.Collections.Generic.Dictionary{``0,``1},Slugent.CommonFunctions.ListPromptOptions{``1})">
+            <summary>
+            Prompts user to choose an item from a list of Dictionary items.  Returns null if the user chose to exit or not select an item. 
+            </summary>
+            <param name="options">The set of options to use to display and operate the selection criteria</param>
+            <returns></returns>
+        </member>
+        <member name="M:SlugEnt.CommonFunctions.ListFX.SetReturn(System.Int32,System.Int32)">
+            <summary>
+            Used to perform cleanup activities when the ChooseListItems method is returning a value
+            </summary>
+            <param name="startingCol"></param>
+            <param name="itemSelected"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SlugEnt.CommonFunctions.ListFX.ClearInput(System.Int32)">
+            <summary>
+            Clears the input line for list selection upon selection
+            </summary>
+            <param name="startingCol"></param>
+        </member>
+    </members>
+</doc>
